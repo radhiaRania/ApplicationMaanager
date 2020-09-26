@@ -6,15 +6,13 @@
 package tableFrame;
 
 import Component.DoubleSpinner;
+import ConnectionDB.LogicTools;
 import ConnectionDB.operationDataBase;
 import applicationmaster.Tools;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
@@ -1978,8 +1976,32 @@ public class tableOperationMongoDB extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnTotAmountActionPerformed
 
     private void BtnPassCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPassCountActionPerformed
-        double[] num = {14645, 721734, 163900, 49019, 24627, 2859, 5, 6, 1};
-        new Tools().createFrameBarChart_PassengerCount(num, "Passenger Count Graphics", 9);
+        Object[] nums = ((DefaultTableModel) tableData.getModel()).getDataVector().toArray();
+        int intervalClassCountNegative = 0;
+        int intervalClassCountMin = 0;
+        int intervalClassCountShort1 = 0;
+        int intervalClassCountShort2 = 0;
+        int intervalClassCountMean1 = 0;
+        int intervalClassCountMean2 = 0;
+        int intervalClassCountLong = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.NEGATIVE.toString()))
+                intervalClassCountNegative = (int) ((Vector) nums[i]).get(6);
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.SHORT1_TRIP.toString()))
+                intervalClassCountShort1 = (int) ((Vector) nums[i]).get(6);
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.SHORT2_TRIP.toString()))
+                intervalClassCountShort2 = (int) ((Vector) nums[i]).get(6);
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.MIN_TRIP.toString()))
+                intervalClassCountMin = (int) ((Vector) nums[i]).get(6);
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.MEAN1_TRIP.toString()))
+                intervalClassCountMean1 = (int) ((Vector) nums[i]).get(6);
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.MEAN2_TRIP.toString()))
+                intervalClassCountMean2 = (int) ((Vector) nums[i]).get(6);
+            if (((Vector) nums[i]).get(5).equals(LogicTools.TripTimeClass.LONG_TRIP.toString()))
+                intervalClassCountLong = (int) ((Vector) nums[i]).get(6);
+        }
+        double[] num = {intervalClassCountNegative, intervalClassCountMin, intervalClassCountShort1, intervalClassCountShort2, intervalClassCountMean1, intervalClassCountMean2, intervalClassCountLong};
+        Tools.createFrameBarChartPassengerCount(num, "Trip Time Per Class Graphics", 7);
     }//GEN-LAST:event_BtnPassCountActionPerformed
 
     private void BtnDistCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDistCalcActionPerformed

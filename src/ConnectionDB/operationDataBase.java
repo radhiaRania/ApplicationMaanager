@@ -163,8 +163,6 @@ public class operationDataBase {
                     ttam *= a;
                 }
                 String cngsur = "";
-
-                //rows.add(new Object[]{_ID, vndID, tpepdate, tpepofdate, tf2, intervalClass, pc, td, rc, fwd, plID, dlID, pt, fa, ext, mtx, tam, tla, impsur, ttam, cngsur});
                 model.addRow(new Object[]{_ID, vndID, tpepdate, tpepofdate, tf2, intervalClass, 0, pc, td, rc, fwd, plID, dlID, pt, fa, ext, mtx, tam, tla, impsur, ttam, cngsur});
 
                 i += 1;
